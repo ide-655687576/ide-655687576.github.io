@@ -1,0 +1,1 @@
+Pada index.html, untuk inputan yang memasukkan target audiens, selalu simpan di localStorage
