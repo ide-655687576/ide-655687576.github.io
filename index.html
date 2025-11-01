@@ -50,26 +50,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="apiKeyModal" tabindex="-1" aria-labelledby="apiKeyModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="apiKeyModalLabel">Enter your Gemini API Key</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>You can get your API key from <a href="https://aistudio.google.com/api-keys" target="_blank">Google AI Studio</a>.</p>
-                    <div class="mb-3">
-                        <label for="apiKeyInput" class="form-label">API Key</label>
-                        <input type="text" class="form-control" id="apiKeyInput">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="saveApiKey">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <script type="module">
         import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
@@ -84,9 +65,7 @@
         const ideasDiv = document.getElementById('ideas');
         const ideasContent = document.getElementById('ideas-content');
         const darkModeSwitch = document.getElementById('darkModeSwitch');
-        const apiKeyModal = new bootstrap.Modal(document.getElementById('apiKeyModal'));
-        const apiKeyInput = document.getElementById('apiKeyInput');
-        const saveApiKey = document.getElementById('saveApiKey');
+        const geminiApiKey = "AIzaSyB0ZdbSRI9TiHr6vJeYpdSvee6C11rTrTI";
 
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark-mode');
@@ -109,17 +88,6 @@
                 document.body.classList.remove('dark-mode');
                 localStorage.setItem('darkMode', 'disabled');
             }
-        });
-
-        let geminiApiKey = localStorage.getItem('geminiApiKey');
-        if (!geminiApiKey) {
-            apiKeyModal.show();
-        }
-
-        saveApiKey.addEventListener('click', () => {
-            geminiApiKey = apiKeyInput.value;
-            localStorage.setItem('geminiApiKey', geminiApiKey);
-            apiKeyModal.hide();
         });
 
         generateButton.addEventListener('click', () => {
@@ -153,12 +121,7 @@
                 localStorage.setItem('contentIdea', text);
             } catch (error) {
                 console.error("Error generating content:", error);
-                if (error.message.includes('400')) {
-                    apiKeyModal.show();
-                    ideasContent.innerHTML = "Invalid API key. Please enter a valid API key.";
-                } else {
                     ideasContent.innerHTML = "Error generating content. Please check the console for details.";
-                }
             } finally {
                 generateButton.disabled = false;
                 spinner.classList.add('d-none');

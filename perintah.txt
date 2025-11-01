@@ -1,1 +1,1 @@
-Pada index.html, untuk inputan yang memasukkan target audiens, selalu simpan di localStorage
+Pada index.html, kenapa dark mode, inputan target audiens, hasil ide konten, nggak masuk localStorage sepertinya?
